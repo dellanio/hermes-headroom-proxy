@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+evidence/isolated-home/
+evidence/headroom-upstream/

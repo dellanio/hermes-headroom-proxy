@@ -1,0 +1,9 @@
+{
+  "autostart": false,
+  "port": 8787,
+  "executable": "headroom",
+  "claude_cli": true,
+  "auto_claude_cli": false,
+  "native_anthropic": false,
+  "failure_policy": "closed"
+}

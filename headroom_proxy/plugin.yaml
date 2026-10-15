@@ -1,0 +1,57 @@
+name: headroom_proxy
+version: "0.3.0"
+description: "Opt-in transparent Hermes Claude routing preserving OAuth; lifecycle, diagnostics and explicit launchers."
+author: "Dellanio Alencar <contato@dellanio.com>"
+provides_hooks:
+  - on_session_start
+  - pre_tool_call
+provides_tools:
+  - headroom_proxy_control
+  - headroom_proxy_stats
+  - headroom_proxy_retrieve
+  - headroom_proxy_status
+config_schema:
+  auto_claude_cli:
+    type: bool
+    default: false
+    description: "Route ordinary terminal Claude commands through scoped child environment; plain executable only."
+  native_anthropic:
+    type: bool
+    default: false
+    description: "Route newly constructed native Anthropic clients via profile-scoped builder integration, preserving OAuth."
+  failure_policy:
+    type: str
+    default: closed
+    description: "Explicit child launch only: closed refuses unavailable proxy; warn-direct visibly bypasses it. Never applies to native Hermes inference."
+  config_reference:
+    type: str
+    default: ""
+    description: "Reference path to authoritative Headroom advanced config; not loaded, modified or applied to external proxy."
+  autostart:
+    type: bool
+    default: true
+    description: "Start/reuse proxy at plugin discovery and session start. No startup until plugin is installed and enabled."
+  port:
+    type: int
+    default: 8787
+    description: "Loopback port 1..65535; occupied unknown services are never touched."
+  executable:
+    type: str
+    default: headroom
+    description: "Headroom executable name or absolute Windows path; no shell command."
+  providers:
+    type: list
+    default: []
+    description: "Explicit run-api child clients only: openai, anthropic. NOT Hermes auto-routing; OAuth providers forbidden."
+  models:
+    type: list
+    default: []
+    description: "Exact model IDs allowed for explicit run-api. Empty allows all selected-provider models. Not a network-level policy."
+  claude_cli:
+    type: bool
+    default: false
+    description: "Opt in to explicit subscription-only Claude CLI launcher; OAuth preserved, API-key/cloud overrides refused."
+  startup_timeout:
+    type: number
+    default: 45
+    description: "Maximum startup wait in seconds (1..120). Settings take effect after reload, not during active calls."
